@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Birthday Surprise (KINZA) ❤️</title>
+
+<style>
+/* Reset */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* prevents scrolling/shaking */
+}
+
+body{
+    background: linear-gradient(135deg,#ffd6e8,#ffc2f0,#d0bfff);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
+    position:relative;
+}
+
+/* Floating Hearts */
+.heart{
+    position:fixed; /* fixed prevents shifting layout */
+    bottom:-30px;
+    font-size:20px;
+    animation:floatUp linear forwards;
+    z-index:1;
+}
+
+@keyframes floatUp{
+    0%{transform:translateY(0);opacity:1;}
+    100%{transform:translateY(-110vh);opacity:0;}
+}
+
+/* Main Section */
+.container{
+    text-align:center;
+    z-index:2;
+    padding:20px;
+}
+
+h1{
+    font-size:2.5rem;
+    margin-bottom:20px;
+}
+
+.btn{
+    padding:12px 25px;
+    border:none;
+    border-radius:30px;
+    background:white;
+    color:#ff4e90;
+    cursor:pointer;
+    font-size:1rem;
+}
+
+/* Overlay */
+.overlay{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.9);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    visibility:hidden;
+    opacity:0;
+    transition:0.5s;
+    z-index:9999;
+    padding:20px;
+}
+
+.overlay.active{
+    visibility:visible;
+    opacity:1;
+}
+
+/* Gallery Box */
+.gallery-box{
+    background:white;
+    padding:20px;
+    border-radius:20px;
+    width:750px;
+    max-width:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    box-shadow:0 0 30px rgba(255,0,128,0.4);
+}
+
+.image-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(100px,1fr));
+    gap:10px;
+    margin-bottom:20px;
+    width:100%;
+}
+
+.image-grid img{
+    width:100%;
+    height:100px;
+    object-fit:cover;
+    border-radius:15px;
+    box-shadow:0 0 10px pink;
+}
+
+/* Dialogue Box */
+.dialogue{
+    display:none;
+    background:white;
+    color:#ff4e90;
+    padding:30px;
+    border-radius:20px;
+    width:100%;
+    max-width:400px;
+    text-align:center;
+    box-shadow:0 0 30px rgba(255,0,128,0.6);
+}
+
+.next-btn{
+    margin-top:20px;
+    padding:10px 20px;
+    border:none;
+    border-radius:20px;
+    background:#ff4e90;
+    color:white;
+    cursor:pointer;
+}
+
+/* Final Fullscreen Celebration */
+.final-screen{
+    display:none;
+    position:fixed;
+    width:100%;
+    height:100%;
+    background:linear-gradient(135deg,#ff4e90,#ff9a9e,#fad0c4);
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    color:white;
+    overflow:hidden;
+}
+
+.big-cake img{
+    width:300px;
+    max-width:80%;
+    height:auto;
+    animation:bounce 1s infinite alternate;
+}
+
+@keyframes bounce{
+    from{transform:translateY(0);}
+    to{transform:translateY(-20px);}
+}
+
+/* Fireworks */
+.firework{
+    position:fixed; /* fixed prevents page shift */
+    font-size:25px;
+    animation:explode 1.5s linear forwards;
+}
+
+@keyframes explode{
+    0%{transform:scale(0);opacity:1;}
+    100%{transform:scale(3);opacity:0;}
+}
+
+/* Responsive */
+@media (max-width:768px){
+    h1{ font-size:2rem; }
+    .btn{ padding:10px 20px; font-size:0.9rem; }
+    .image-grid img{ height:80px; }
+    .dialogue{ padding:20px; max-width:90%; }
+    .big-cake img{ width:120px; }
+}
+
+@media (max-width:480px){
+    h1{ font-size:1.5rem; }
+    .btn{ padding:8px 15px; font-size:0.8rem; }
+    .image-grid img{ height:70px; }
+    .dialogue{ padding:15px; max-width:90%; }
+    .big-cake img{ width:100px; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🎉Kinza , Mera Bacha 🎉</h1>
+    <button class="btn" onclick="startSurprise()">Click For Surprise 💖</button>
+</div>
+
+<div class="overlay" id="overlay">
+
+    <!-- Gallery -->
+    <div class="gallery-box" id="gallerySection">
+        <div class="image-grid">
+            <img src="images/img1.png" alt="Birthday Pic 1">
+            <img src="images/img2.jpg" alt="Birthday Pic 2">
+            <img src="images/img4.jpg" alt="Birthday Pic 3">
+            <img src="images/img5.jpg" alt="Birthday Pic 4">
+        </div>
+        <button class="next-btn" onclick="showDialogue()">Next ➡</button>
+    </div>
+
+    <!-- Dialogue -->
+    <div class="dialogue" id="dialogueBox">
+       <h2>
+    Every time I'm with you, I feel like a little kid again 😄❤️<br><br>
+    You make life so fun and magical ✨
+</h2>
+        <button class="next-btn" onclick="showFinal()">Next ➡</button>
+    </div>
+
+    <!-- Final Celebration -->
+    <div class="final-screen" id="finalScreen">
+        <div class="big-cake"><img src="images/img3.png"></div>
+        <h1>💕 Happy Birthday My Doremon 💕</h1>
+<p style="font-size:1.2rem; margin-top:15px;">
+You make every day brighter 🌟<br>
+Hope your birthday is as fun and magical as you are ✨🎉<br>
+Can’t wait for more adventures together 😄💖<br>
+I just want you to know how much I appreciate you.✨🎉 <br>
+You make people around you feel valued and understood, and that’s rare. <br>
+I’m really lucky to know you.😄💖
+</p>
+    </div>
+
+</div>
+
+<script>
+/* Floating Hearts */
+function createHeart(){
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerHTML = "💖";
+    heart.style.left = Math.random()*90 + "vw";
+    heart.style.fontSize = (Math.random()*20+15) + "px";
+    heart.style.animationDuration = (Math.random()*3+4) + "s";
+    document.body.appendChild(heart);
+    setTimeout(()=>{heart.remove();},7000);
+}
+setInterval(createHeart, 400);
+
+/* Flow Control */
+function startSurprise(){
+    document.getElementById("overlay").classList.add("active");
+}
+
+function showDialogue(){
+    document.getElementById("gallerySection").style.display = "none";
+    document.getElementById("dialogueBox").style.display = "block";
+}
+
+function showFinal(){
+    document.getElementById("dialogueBox").style.display = "none";
+    document.getElementById("finalScreen").style.display = "flex";
+    startFireworks();
+}
+
+/* Fireworks Generator */
+function startFireworks(){
+    setInterval(()=>{
+        const fw = document.createElement("div");
+        fw.classList.add("firework");
+        fw.innerHTML = "🎆";
+        fw.style.left = Math.random()*90 + "vw";
+        fw.style.top = Math.random()*80 + "vh";
+        document.getElementById("finalScreen").appendChild(fw);
+        setTimeout(()=>{fw.remove();},1500);
+    },500); // slower to reduce jitter
+}
+</script>
+
+</body>
+</html>
